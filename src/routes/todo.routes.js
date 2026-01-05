@@ -23,6 +23,30 @@ router.get("/:id", (req, res) => {
     res.json(todo)
 })
 
+
+router.put("/:id", (req, res) => {
+    const { id } = req.params
+    const {title, completed} = req.body
+
+    const todo = todos.find(t => t.id === Number(id))
+
+    if(!todos) {
+        return res.status(404).json({ error: "Todo not found" })
+    }
+
+    if(title !== undefined) {
+        todo.title = title
+    }
+
+    if (completed !== undefined) {
+        todo.completed = completed
+    }
+
+    res.json(todo)
+    
+
+})
+
 router.post("/", (req, res) => {
     const { title } = req.body
 
