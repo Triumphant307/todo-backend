@@ -47,6 +47,23 @@ router.put("/:id", (req, res) => {
 
 })
 
+router.delete("/:id", (req, res) => {
+    const { id } = req.params
+
+    const index = todos.findIndex(t => t.id === Number(id))
+
+    if (index === -1) {
+        return res.status(404).json({ error: "Todo not found"})
+    }
+
+    const deletedTodo = todos.splice(index, 1)[0]
+
+    res.json({
+        message: "Todo deleted successfully",
+        todo: deletedTodo
+    })
+})
+
 router.post("/", (req, res) => {
     const { title } = req.body
 
